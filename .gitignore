@@ -1,0 +1,38 @@
+### IntelliJ IDEA ###
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+/面向对象程序设计(Java)实践-课程报告模版.docx
+/《面向对象程序设计（Java）实践》任务书.docx
+/~$对象程序设计(Java)实践-课程报告模版.docx
+/~$向对象程序设计（Java）实践》任务书.docx
+/References/
+/.idea/MarsCodeWorkspaceAppSettings.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/misc.xml
+/.idea/modules.xml
