@@ -28,44 +28,44 @@ public class Student {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getProf() {
-        return prof;
-    }
-
-    public String getClassNo() {
-        return classNo;
-    }
-
-    public String getPreference() {
-        return preference;
-    }
-
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    public int getAge() {
+        return age;
+    }
+
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getProf() {
+        return prof;
     }
 
     public void setProf(String prof) {
         this.prof = prof;
     }
 
+    public String getClassNo() {
+        return classNo;
+    }
+
     public void setClassNo(String classNo) {
         this.classNo = classNo;
+    }
+
+    public String getPreference() {
+        return preference;
     }
 
     public void setPreference(String preference) {
@@ -77,7 +77,7 @@ public class Student {
         return "ID: " + id + "\nName: " + name + "\nAge: " + age + "\nProf: " + prof + "\nClass No: " + classNo + "\nPreference: " + preference;
     }
 
-    public Student[] readStudentsFromFile(String fileName){
+    public Student[] readStudentsFromFile(String fileName) {
         /* input: 要读取的文件名 */
         /* return 学生对象数组 */
         // 从文件中读取学生信息
@@ -88,7 +88,7 @@ public class Student {
             while ((line = reader.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
                 
-                // 文件中每行的格式为：id,name,age,prof,classNo,preference
+                // 假设文件中每行的格式为：id,name,age,prof,classNo,preference
                 String[] parts = line.split(",");
                 if (parts.length == 6) {
                     String id = parts[0].trim();
@@ -113,7 +113,7 @@ public class Student {
         return students.toArray(new Student[0]);
     }
 
-    public void writeStudentsToFile(String fileName){
+    public void writeStudentsToFile(String fileName) {
         /* input: 要写入的文件名 */
         /* return: 无 */
         // 将学生信息写入文件
@@ -130,7 +130,7 @@ public class Student {
         }
     }
 
-    public String[] searchStudentById(String id){
+    public String[] searchStudentById(String id) {
         /* input: 要搜索的学生ID */
         /* return 学生信息字符串集合 */
         // 使用displayStudentInfo方法显示学生信息并切分为多个字符串
@@ -142,7 +142,7 @@ public class Student {
         return null;
     }
 
-    public String displayStudentInfo(String id){
+    public String displayStudentInfo(String id) {
         /* input: 要搜索的学生ID */
         /* return 学生信息字符串 */
         System.out.println("Searching for student with ID: " + id);
@@ -158,7 +158,7 @@ public class Student {
         return null;
     }
 
-    public Student addStudent(String id, String name, int age, String prof, String classNo, String preference){
+    public Student addStudent(String id, String name, int age, String prof, String classNo, String preference) {
         /* input: 要添加的学生信息 */
         /* return 新添加的学生对象 */
         // 检查ID是否已存在
@@ -171,11 +171,12 @@ public class Student {
         
         System.out.println("Adding student with ID: " + id);
         Student newStudent = new Student(id, name, age, prof, classNo, preference);
+        System.out.println(newStudent);
         studentList.add(newStudent);
         return newStudent;
     }
 
-    public Student modifyStudentInfo(String id, String name, int age, String prof, String classNo, String preference){
+    public Student modifyStudentInfo(String id, String name, int age, String prof, String classNo, String preference) {
         /* input: 要修改的学生ID和新的学生信息 */
         /* return 修改后的学生对象 */
         for (Student student : studentList) {
@@ -194,7 +195,7 @@ public class Student {
         return null;
     }
 
-    public Student deleteStudent(String id){
+    public Student deleteStudent(String id) {
         /* input: 要删除的学生ID */
         /* return: 删除的学生对象 */
         for (Student student : studentList) {
