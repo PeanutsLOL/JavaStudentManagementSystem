@@ -88,7 +88,7 @@ public class Student {
             while ((line = reader.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
                 
-                // 假设文件中每行的格式为：id,name,age,prof,classNo,preference
+                // 文件中每行的格式为：id,name,age,prof,classNo,preference
                 String[] parts = line.split(",");
                 if (parts.length == 6) {
                     String id = parts[0].trim();

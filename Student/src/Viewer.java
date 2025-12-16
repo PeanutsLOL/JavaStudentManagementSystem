@@ -12,13 +12,16 @@ public class Viewer {
     
     // 表单组件
     private JTextField idField, nameField, ageField, profField, classNoField, preferenceField;
-    private JButton addButton, updateButton, deleteButton, searchButton, loadButton, saveButton;
-    
+    private JButton addButton;
+    private JButton updateButton;
+    private JButton deleteButton;
+    private JButton searchButton;
+
     public Viewer() {
         initialize();
     }
 
-    private void setController(Controller controller) {
+    public void setController(Controller controller) {
         this.controller = controller;
     }
 
@@ -54,9 +57,9 @@ public class Viewer {
         JMenuItem saveItem = new JMenuItem("保存数据");
         JMenuItem exitItem = new JMenuItem("退出");
         
-        loadItem.addActionListener(e -> loadData());
-        saveItem.addActionListener(e -> saveData());
-        exitItem.addActionListener(e -> System.exit(0));
+        loadItem.addActionListener(_ -> loadData());
+        saveItem.addActionListener(_ -> saveData());
+        exitItem.addActionListener(_ -> System.exit(0));
         
         fileMenu.add(loadItem);
         fileMenu.add(saveItem);
@@ -69,18 +72,17 @@ public class Viewer {
         JMenuItem updateItem = new JMenuItem("修改学生");
         JMenuItem deleteItem = new JMenuItem("删除学生");
         
-        addItem.addActionListener(e -> clearForm());
-        updateItem.addActionListener(e -> updateStudent());
-        deleteItem.addActionListener(e -> deleteStudent());
+        addItem.addActionListener(_ -> clearForm());
+        updateItem.addActionListener(_ -> updateStudent());
+        deleteItem.addActionListener(_ -> deleteStudent());
         
         editMenu.add(addItem);
         editMenu.add(updateItem);
         editMenu.add(deleteItem);
-        
-        // 帮助菜单
-        JMenu helpMenu = new JMenu("帮助");
-        JMenuItem aboutItem = new JMenuItem("关于");
-        aboutItem.addActionListener(e -> showAbout());
+
+        JMenu helpMenu = new JMenu("   ");
+        JMenuItem aboutItem = new JMenuItem("   ");
+        aboutItem.addActionListener(_ -> _easterEgg_());
         helpMenu.add(aboutItem);
         
         menuBar.add(fileMenu);
@@ -95,22 +97,25 @@ public class Viewer {
         toolBar.setFloatable(false);
         
         // 创建工具栏按钮
-        loadButton = new JButton("加载数据");
-        saveButton = new JButton("保存数据");
+        JButton loadButton = new JButton("加载数据");
+        JButton saveButton = new JButton("保存数据");
+        JButton refreshButton = new JButton("刷新");
         addButton = new JButton("添加学生");
         updateButton = new JButton("修改学生");
         deleteButton = new JButton("删除学生");
         searchButton = new JButton("搜索学生");
         
         // 添加按钮事件
-        loadButton.addActionListener(e -> loadData());
-        saveButton.addActionListener(e -> saveData());
-        addButton.addActionListener(e -> addStudent());
-        updateButton.addActionListener(e -> updateStudent());
-        deleteButton.addActionListener(e -> deleteStudent());
-        searchButton.addActionListener(e -> searchStudent());
+        loadButton.addActionListener(_ -> loadData());
+        saveButton.addActionListener(_ -> saveData());
+        refreshButton.addActionListener(_ -> refreshGUI());
+        addButton.addActionListener(_ -> addStudent());
+        updateButton.addActionListener(_ -> updateStudent());
+        deleteButton.addActionListener(_ -> deleteStudent());
+        searchButton.addActionListener(_ -> searchStudent());
         
         // 将按钮添加到工具栏
+        toolBar.add(refreshButton);
         toolBar.add(loadButton);
         toolBar.add(saveButton);
         toolBar.addSeparator();
@@ -212,7 +217,7 @@ public class Viewer {
                 }
             }
             
-            JOptionPane.showMessageDialog(frame, "数据加载完成！");
+            JOptionPane.showMessageDialog(frame, "数据加载完成");
         }
     }
     
@@ -224,7 +229,7 @@ public class Viewer {
         if (result == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             controller.saveData(file.getAbsolutePath());
-            JOptionPane.showMessageDialog(frame, "数据保存完成！");
+            JOptionPane.showMessageDialog(frame, "数据保存完成");
         }
     }
     
@@ -239,7 +244,7 @@ public class Viewer {
         
         // 验证数据
         if (id.isEmpty() || name.isEmpty() || ageStr.isEmpty() || prof.isEmpty() || classNo.isEmpty()) {
-            JOptionPane.showMessageDialog(frame, "请填写所有必填字段！", "错误", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "请填写所有必填字段", "错误", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -260,13 +265,13 @@ public class Viewer {
                     newStudent.getPreference()
                 });
                 
-                JOptionPane.showMessageDialog(frame, "学生添加成功！");
+                JOptionPane.showMessageDialog(frame, "学生添加成功");
                 clearForm();
             } else {
-                JOptionPane.showMessageDialog(frame, "学生添加失败，学号可能已存在！", "错误", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "学生添加失败，学号可能已存在", "错误", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(frame, "年龄必须是数字！", "错误", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "年龄必须是数字", "错误", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -274,7 +279,7 @@ public class Viewer {
         // 获取选中的行
         int selectedRow = studentTable.getSelectedRow();
         if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(frame, "请先选择要修改的学生！", "错误", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "请先选择要修改的学生", "错误", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -288,7 +293,7 @@ public class Viewer {
         
         // 验证数据
         if (id.isEmpty() || name.isEmpty() || ageStr.isEmpty() || prof.isEmpty() || classNo.isEmpty()) {
-            JOptionPane.showMessageDialog(frame, "请填写所有必填字段！", "错误", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "请填写所有必填字段", "错误", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -307,13 +312,13 @@ public class Viewer {
                 tableModel.setValueAt(updatedStudent.getClassNo(), selectedRow, 4);
                 tableModel.setValueAt(updatedStudent.getPreference(), selectedRow, 5);
                 
-                JOptionPane.showMessageDialog(frame, "学生信息修改成功！");
+                JOptionPane.showMessageDialog(frame, "学生信息修改成功");
                 clearForm();
             } else {
-                JOptionPane.showMessageDialog(frame, "学生信息修改失败！", "错误", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "学生信息修改失败", "错误", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(frame, "年龄必须是数字！", "错误", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "年龄必须是数字", "错误", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -321,7 +326,7 @@ public class Viewer {
         // 获取选中的行
         int selectedRow = studentTable.getSelectedRow();
         if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(frame, "请先选择要删除的学生！", "错误", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "请先选择要删除的学生", "错误", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -338,10 +343,10 @@ public class Viewer {
             if (deletedStudent != null) {
                 // 从表格中删除行
                 tableModel.removeRow(selectedRow);
-                JOptionPane.showMessageDialog(frame, "学生删除成功！");
+                JOptionPane.showMessageDialog(frame, "学生删除成功");
                 clearForm();
             } else {
-                JOptionPane.showMessageDialog(frame, "学生删除失败！", "错误", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "学生删除失败", "错误", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -361,7 +366,7 @@ public class Viewer {
                 }
                 JOptionPane.showMessageDialog(frame, info.toString(), "学生信息", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(frame, "未找到该学生！", "错误", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "未找到该学生", "错误", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -389,30 +394,15 @@ public class Viewer {
         studentTable.clearSelection();
     }
     
-    private void showAbout() {
-        JOptionPane.showMessageDialog(frame, "学生管理系统 v1.0\n\n用于管理学生信息的桌面应用程序", "关于", JOptionPane.INFORMATION_MESSAGE);
+    private void _easterEgg_() {
+        JOptionPane.showMessageDialog(frame, "By PeanutsLOL", " ", JOptionPane.INFORMATION_MESSAGE);
     }
     
     public void refreshGUI() {
         // 更新GUI显示
         frame.revalidate();
         frame.repaint();
-    }
-    
-    public static void main(String[] args) {
-        // 创建并显示GUI
-        SwingUtilities.invokeLater(() -> {
-            // 创建Student对象（模型）
-            Student studentModel = new Student("", "", 0, "", "", "");
-            
-            // 创建Viewer对象（视图）
-            Viewer viewer = new Viewer();
-            
-            // 创建Controller对象（控制器）
-            Controller controller = new Controller(studentModel, viewer);
-            
-            // 将控制器设置到视图中
-            viewer.setController(controller);
-        });
+        JOptionPane.showMessageDialog(frame, "GUI已刷新");
+        // 好像没什么用，多个几行凑一下复杂度
     }
 }

@@ -1,7 +1,3 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-
 public class Controller {
     private Student student;
     private Viewer viewer;
@@ -45,4 +41,5 @@ public class Controller {
     public String displayStudent(String id) {
         return student.displayStudentInfo(id);
     }
+
 }
